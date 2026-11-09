@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QuickBite Food Delivery – EXP 9 URK24CS1092</title>
+<style>
+:root{--bg:#fff7f0;--card:#fff;--tx:#2b1d14;--mu:#8a7566;--pr:#e8590c;--bd:#f0dccd;--nav:#2b1d14;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1410;--card:#2a1f19;--tx:#f5e9df;--mu:#b39b8a;--bd:#4a382c;--nav:#0f0a07}}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--tx);padding-bottom:70px}
+header{background:linear-gradient(90deg,#e8590c,#f59f00);color:#fff;text-align:center;padding:16px 8px}
+header h1{margin:0;font-size:1.3rem}header p{margin:4px 0 0;font-size:.8rem;opacity:.9}
+nav{background:var(--nav);display:flex;gap:2px;overflow-x:auto;justify-content:center}
+nav button{background:none;border:0;color:#ddd;padding:10px 12px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent}
+nav button.on{color:#fff;border-color:#f59f00}
+main{max-width:820px;margin:12px auto;padding:0 10px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:12px}
+h2{margin:0 0 8px;font-size:1.05rem;color:var(--pr)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}
+label{font-size:.7rem;color:var(--mu);display:flex;flex-direction:column;gap:2px}
+input,select{padding:7px;border:1px solid var(--bd);border-radius:6px;background:var(--bg);color:var(--tx);width:110px}
+button.b{padding:7px 11px;border:0;border-radius:6px;color:#fff;cursor:pointer;background:var(--pr);font-size:.8rem}
+.g{background:#2f9e44!important}.r{background:#e03131!important}.bl{background:#1c7ed6!important}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.stat{text-align:center;padding:10px}.stat b{display:block;font-size:1.5rem;color:var(--pr)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.item{border-top:3px solid var(--pr);background:var(--card);border:1px solid var(--bd);border-top:3px solid var(--pr);border-radius:8px;padding:10px;font-size:.85rem}
+.item h3{margin:0 0 4px;font-size:.95rem;display:flex;justify-content:space-between}
+.tag{background:var(--bd);border-radius:10px;padding:1px 8px;font-size:.7rem}
+.item .row{margin-top:6px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.82rem}th,td{text-align:left;padding:6px;border-bottom:1px solid var(--bd)}
+.msg{font-size:.8rem;color:var(--mu);margin:6px 0}
+#term{position:fixed;left:0;right:0;bottom:0;background:#0b1220;color:#7ee787;font:12px monospace;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));z-index:5;max-height:80px;overflow:auto}
+#term i{color:#79c0ff;font-style:normal}
+footer{text-align:center;font-size:.7rem;color:var(--mu);margin:10px}
+.pod{display:flex;justify-content:center;gap:10px;align-items:flex-end;text-align:center}.pod div{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:10px;font-size:.8rem;width:30%}
+</style></head><body>
+<header><h1>🍔 QuickBite Online Food Delivery</h1><p>Order, track and deliver – MongoDB shell style operations · URK24CS1092</p></header>
+<nav id="nav"></nav><main id="app"></main>
+<footer>QuickBite powered by MongoDB-style queries · URK24CS1092 · Ex. 9 WTL</footer>
+<div id="term"><i>FoodDB&gt;</i> use FoodDB<br><i>FoodDB&gt;</i> <span id="cmd">db.restaurants.countDocuments() // 5</span></div>
+<script>
+var R=[{id:101,name:"Spice Hub",cuisine:"Indian",city:"Chennai",time:30,rating:4.5},
+{id:102,name:"Pizza Palace",cuisine:"Italian",city:"Chennai",time:35,rating:4.2},
+{id:103,name:"Dragon Wok",cuisine:"Chinese",city:"Madurai",time:40,rating:3.9},
+{id:104,name:"Burger Barn",cuisine:"Fast Food",city:"Chennai",time:25,rating:4.7},
+{id:105,name:"Green Bowl",cuisine:"Healthy",city:"Coimbatore",time:45,rating:4.1}];
+var P=[{id:1,name:"Karthik",zone:"North",earn:42000,exp:5},{id:2,name:"Suresh",zone:"South",earn:38000,exp:3},
+{id:3,name:"Anand",zone:"North",earn:45000,exp:7},{id:4,name:"Meena",zone:"East",earn:36000,exp:2},
+{id:5,name:"Lakshmi",zone:"South",earn:48000,exp:8}];
+var M=[{id:1,name:"Chicken Biryani",cat:"Rice",price:250,stock:40},{id:2,name:"Margherita Pizza",cat:"Pizza",price:499,stock:15},
+{id:3,name:"Veg Burger",cat:"Burger",price:120,stock:0},{id:4,name:"Family Combo Meal",cat:"Combo",price:1800,stock:8},
+{id:5,name:"Paneer Wrap",cat:"Wrap",price:180,stock:25},{id:6,name:"Party Pizza XL",cat:"Pizza",price:2200,stock:5}];
+var C=[{id:1,name:"Arun",city:"Chennai",tier:"Gold",wallet:500},{id:2,name:"Divya",city:"Madurai",tier:"Silver",wallet:250},
+{id:3,name:"Kumar",city:"Chennai",tier:"Gold",wallet:900},{id:4,name:"Priya",city:"Coimbatore",tier:"Basic",wallet:100},
+{id:5,name:"Ravi",city:"Chennai",tier:"Silver",wallet:300}];
+var tab="Home",rf={},pf={},mf={},cf={},msg="";
+function $(i){var e=document.getElementById(i);return e?e.value:""}
+function cmd(s){document.getElementById("cmd").textContent=s}
+function opts(a,all){return (all?'<option value="">All</option>':'')+a.map(function(x){return'<option>'+x+'</option>'}).join('')}
+function uniq(a,k){return a.map(function(x){return x[k]}).filter(function(v,i,s){return s.indexOf(v)==i})}
+function fld(l,id,t,v,ph){return'<label>'+l+'<input id="'+id+'" type="'+(t||'text')+'" value="'+(v||'')+'" placeholder="'+(ph||'')+'"></label>'}
+function sel(l,id,o){return'<label>'+l+'<select id="'+id+'">'+o+'</select></label>'}
+function btn(t,c,f){return'<button class="b '+c+'" onclick="'+f+'">'+t+'</button>'}
+var tabs=["Home","Restaurants","Register","Top Rated","Partners","Menu","Customers"];
+function go(t){tab=t;msg="";draw()}
+function draw(){
+document.getElementById("nav").innerHTML=tabs.map(function(t){return'<button class="'+(t==tab?'on':'')+'" onclick="go(\''+t+'\')">'+t+'</button>'}).join('');
+var h="";
+if(tab=="Home")h=home();else if(tab=="Restaurants")h=rest();else if(tab=="Register")h=reg();
+else if(tab=="Top Rated")h=topr();else if(tab=="Partners")h=part();else if(tab=="Menu")h=menu();else h=cust();
+document.getElementById("app").innerHTML=h;
+if(tab=="Restaurants")document.getElementById("rs").value=rf.sort||"";
+}
+function home(){var best=Math.max.apply(null,R.map(function(x){return x.rating}));
+return'<div class="stats"><div class="card stat"><b>'+R.length+'</b>Restaurants</div><div class="card stat"><b>'+M.length+'</b>Menu items</div><div class="card stat"><b>'+best+'</b>Highest rating</div><div class="card stat"><b>'+P.length+'</b>Delivery partners</div></div>'+
+'<div class="card"><h2>Welcome to QuickBite!</h2><p>Browse restaurants, order food, and follow the live top-rated list. Every action below runs a MongoDB-style command, shown in the terminal at the bottom.</p>'+btn("Reset sample data","bl","location.reload()")+'</div>';}
+function rest(){var q={};var l=R.slice();var c=["db.restaurants.find("];var f=[];
+if(rf.name){l=l.filter(function(x){return x.name.toLowerCase().indexOf(rf.name.toLowerCase())>-1});f.push('name: "'+rf.name+'"')}
+if(rf.cu){l=l.filter(function(x){return x.cuisine==rf.cu});f.push('cuisine: "'+rf.cu+'"')}
+if(rf.min){l=l.filter(function(x){return x.rating>=+rf.min});f.push('rating: {$gte: '+rf.min+'}')}
+if(rf.max){l=l.filter(function(x){return x.time<=+rf.max});f.push('time: {$lte: '+rf.max+'}')}
+var s="";if(rf.sort=="rating"){l.sort(function(a,b){return b.rating-a.rating});s=".sort({rating: -1})"}
+else if(rf.sort=="time"){l.sort(function(a,b){return a.time-b.time});s=".sort({time: 1})"}
+cmd("db.restaurants.find({"+f.join(", ")+"})"+s);
+return'<div class="card"><h2>Find Restaurants</h2><div class="row">'+fld("Name","rn","text",rf.name,"e.g. Spice")+sel("Cuisine","rc",opts(uniq(R,"cuisine"),1))+fld("Min rating","rm","number",rf.min,"e.g. 4")+fld("Max time (min)","rx","number",rf.max)+sel("Sort","rs",'<option value="">None</option><option value="rating">Rating</option><option value="time">Delivery time</option>')+btn("Search","g","srch()")+'</div></div>'+
+'<div class="msg">'+l.length+' restaurant(s) found '+msg+'</div><div class="grid">'+l.map(function(x){return'<div class="item"><h3>'+x.name+'<span style="color:#2f9e44">★'+x.rating.toFixed(1)+'</span></h3><span class="tag">'+x.cuisine+'</span><div class="msg">'+x.city+' · '+x.time+' min · ID '+x.id+'</div><div class="row">'+btn("Rate +0.1","bl","rate("+x.id+")")+btn("Delete","r","delR("+x.id+")")+'</div></div>'}).join('')+'</div>';}
+function srch(){rf={name:$("rn"),cu:$("rc"),min:$("rm"),max:$("rx"),sort:$("rs")};draw();document.getElementById("rc").value=rf.cu}
+function rate(i){var x=R.filter(function(r){return r.id==i})[0];x.rating=Math.min(5,Math.round((x.rating+.1)*10)/10);cmd('db.restaurants.updateOne({id: '+i+'}, {$set: {rating: '+x.rating+'}})');draw()}
+function delR(i){R=R.filter(function(r){return r.id!=i});cmd('db.restaurants.deleteOne({id: '+i+'})');rf={};draw()}
+function reg(){return'<div class="card"><h2>Register a Restaurant</h2><div class="row">'+fld("Name","an")+fld("Cuisine","ac")+fld("City","ay")+fld("Time (min)","at","number",30)+fld("Rating","ar","number",4)+btn("Register","g","addR()")+'</div><div class="msg">'+msg+'</div></div>'+
+'<div class="card"><h2>Admin Tools</h2><div class="row">'+sel("Cuisine","bc",opts(uniq(R,"cuisine")))+fld("Bonus","bb","number",.2)+btn("Add bonus to cuisine","bl","bonus()")+fld("Remove below","bl2","number",4)+btn("Remove low rated","r","low()")+'</div></div>';}
+function addR(){if(!$("an")){msg="Name required";return draw()}var id=Math.max.apply(null,R.map(function(x){return x.id}))+1;
+var d={id:id,name:$("an"),cuisine:$("ac")||"Other",city:$("ay")||"Chennai",time:+$("at"),rating:+$("ar")};R.push(d);
+cmd('db.restaurants.insertOne({id: '+id+', name: "'+d.name+'", cuisine: "'+d.cuisine+'", time: '+d.time+', rating: '+d.rating+'})');msg="Inserted ✔";draw()}
+function bonus(){var c=$("bc"),b=+$("bb");R.forEach(function(x){if(x.cuisine==c)x.rating=Math.min(5,Math.round((x.rating+b)*10)/10)});cmd('db.restaurants.updateMany({cuisine: "'+c+'"}, {$inc: {rating: '+b+'}})');msg="Updated ✔";draw()}
+function low(){var v=+$("bl2");R=R.filter(function(x){return x.rating>=v});cmd('db.restaurants.deleteMany({rating: {$lt: '+v+'}})');msg="Deleted ✔";draw()}
+function topr(){var l=R.slice().sort(function(a,b){return b.rating-a.rating});cmd("db.restaurants.find().sort({rating: -1}).limit(3)");var t=l.slice(0,3),m=["🥇","🥈","🥉"];
+return'<div class="card"><h2>🏆 Top 3 Restaurants</h2><div class="pod">'+t.map(function(x,i){return'<div>'+m[i]+'<br><b>'+x.name+'</b><br>'+x.cuisine+'<br><b style="color:#2f9e44">'+x.rating.toFixed(1)+'</b></div>'}).join('')+'</div></div>'+
+'<div class="card"><h2>Full Rankings</h2><div class="tw"><table><tr><th>#</th><th>Restaurant</th><th>Cuisine</th><th>City</th><th>Rating</th></tr>'+l.map(function(x,i){return'<tr><td>'+(i+1)+'</td><td>'+x.name+'</td><td>'+x.cuisine+'</td><td>'+x.city+'</td><td>'+x.rating.toFixed(1)+'</td></tr>'}).join('')+'</table></div></div>';}
+function part(){var l=P.slice().sort(function(a,b){return b.earn-a.earn});var ab=pf.ab||0;if(ab)l=l.filter(function(x){return x.earn>ab});
+cmd(pf.cnt?'db.partners.countDocuments({zone: "'+pf.z+'"}) // '+pf.cnt.n:'db.partners.find({earn: {$gt: '+ab+'}}).sort({earn: -1})');
+return'<div class="card"><h2>Delivery Partners</h2><div class="row">'+fld("Earnings above (₹)","pa","number",ab||40000)+btn("Filter","g","pfil()")+sel("Zone","pz",opts(uniq(P,"zone")))+btn("Count","bl","pcnt()")+'</div>'+(pf.cnt?'<div class="msg">'+pf.cnt.n+' partner(s) in '+pf.z+'</div>':'')+'</div>'+
+'<div class="card tw"><table><tr><th>ID</th><th>Name</th><th>Zone</th><th>Earnings (₹)</th><th>Exp</th><th></th></tr>'+l.map(function(x){return'<tr><td>'+x.id+'</td><td>'+x.name+'</td><td>'+x.zone+'</td><td>'+x.earn+'</td><td>'+x.exp+' yrs</td><td>'+btn("+2000","bl","pinc("+x.id+")")+'</td></tr>'}).join('')+'</table></div>';}
+function pfil(){pf={ab:+$("pa")};draw()}
+function pcnt(){var z=$("pz");pf={ab:pf.ab,z:z,cnt:{n:P.filter(function(x){return x.zone==z}).length}};draw();document.getElementById("pz").value=z}
+function pinc(i){P.forEach(function(x){if(x.id==i)x.earn+=2000});cmd('db.partners.updateOne({id: '+i+'}, {$inc: {earn: 2000}})');draw()}
+function menu(){var l=M.slice(),f=[],s="";
+if(mf.c){l=l.filter(function(x){return x.cat==mf.c});f.push('cat: "'+mf.c+'"')}
+if(mf.a||mf.b){var a=+mf.a||0,b=+mf.b||1e9;l=l.filter(function(x){return x.price>=a&&x.price<=b});f.push('price: {$gte: '+a+', $lte: '+b+'}')}
+if(mf.top){l=M.slice().sort(function(a,b){return b.price-a.price}).slice(0,5);s=".sort({price: -1}).limit(5)";f=[]}
+cmd("db.menu.find({"+f.join(", ")+"})"+s);
+return'<div class="card"><h2>Menu Store</h2><div class="row">'+sel("Category","mc",opts(uniq(M,"cat"),1))+fld("Price from","ma","number",mf.a,"500")+fld("Price to","mb","number",mf.b,"2000")+btn("Search","g","msch()")+btn("5 most expensive","bl","mtop()")+btn("Remove out-of-stock","r","mrem()")+'</div><div class="msg">'+msg+'</div></div>'+
+'<div class="card tw"><table><tr><th>ID</th><th>Item</th><th>Category</th><th>Price (₹)</th><th>Stock</th><th></th></tr>'+l.map(function(x){return'<tr><td>'+x.id+'</td><td>'+x.name+'</td><td>'+x.cat+'</td><td>'+x.price+'</td><td>'+x.stock+'</td><td>'+btn("+10 stock","bl","mst("+x.id+")")+'</td></tr>'}).join('')+'</table></div>';}
+function msch(){mf={c:$("mc"),a:$("ma"),b:$("mb")};draw();document.getElementById("mc").value=mf.c}
+function mtop(){mf={top:1};draw()}
+function mst(i){M.forEach(function(x){if(x.id==i)x.stock+=10});cmd('db.menu.updateOne({id: '+i+'}, {$inc: {stock: 10}})');draw()}
+function mrem(){M=M.filter(function(x){return x.stock>0});cmd('db.menu.deleteMany({stock: 0})');msg="Out-of-stock items deleted ✔";mf={};draw()}
+function cust(){var l=C.slice(),f=[],s="";
+if(cf.n){l=l.filter(function(x){return x.name.toLowerCase().indexOf(cf.n.toLowerCase())>-1});f.push('name: "'+cf.n+'"')}
+if(cf.t){l=l.filter(function(x){return x.tier==cf.t});f.push('tier: "'+cf.t+'"')}
+if(cf.s){l.sort(function(a,b){return a.name.localeCompare(b.name)});s=".sort({name: 1})"}
+cmd("db.customers.find({"+f.join(", ")+"})"+s+" // total "+C.length);
+return'<div class="card"><h2>Customers</h2><div class="row">'+fld("Name","cn","text",cf.n,"e.g. Arun")+sel("Tier","ct",opts(["Gold","Silver","Basic"],1))+sel("Sort","cs",'<option value="">None</option><option value="1">Name A-Z</option>')+btn("Search","g","csch()")+'<span class="msg">Total customers: '+C.length+'</span></div></div>'+
+'<div class="card tw"><table><tr><th>ID</th><th>Name</th><th>City</th><th>Tier</th><th>Wallet (₹)</th><th></th></tr>'+l.map(function(x){return'<tr><td>'+x.id+'</td><td>'+x.name+'</td><td>'+x.city+'</td><td>'+x.tier+'</td><td>'+x.wallet+'</td><td>'+btn("+100","bl","cw("+x.id+")")+'</td></tr>'}).join('')+'</table></div>';}
+function csch(){cf={n:$("cn"),t:$("ct"),s:$("cs")};draw();document.getElementById("ct").value=cf.t;document.getElementById("cs").value=cf.s}
+function cw(i){C.forEach(function(x){if(x.id==i)x.wallet+=100});cmd('db.customers.updateOne({id: '+i+'}, {$inc: {wallet: 100}})');draw()}
+draw();
+</script></body></html>
